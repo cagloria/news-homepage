@@ -396,3 +396,10 @@ FodyWeavers.xsd
 
 # JetBrains Rider
 *.sln.iml
+
+*.sketch
+*.fig
+*.xd
+.DS_Store
+.prettierignore
+.vscode
