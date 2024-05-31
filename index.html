@@ -12,6 +12,8 @@
         />
         <link rel="stylesheet" href="./src/css/index.css" type="text/css" />
 
+        <script src="./src/script/main.js"></script>
+
         <title>Frontend Mentor | News homepage</title>
     </head>
     <header>
@@ -26,51 +28,15 @@
         </nav>
     </header>
     <body>
-        <section>
-            <div>
-                <h2>The Bright Future of Web 3.0?</h2>
-                <p>
-                    We dive into the next evolution of the web that claims to
-                    put the power of the platforms back into the hands of the
-                    people. But is it really fulfilling its promise?
-                </p>
-                <a href="">Read more</a>
-            </div>
-            <div>
+        <main>
+            <section id="primary-featured-container"></section>
+            <section>
+                <ol id="secondary-featured-list"></ol>
+            </section>
+            <section>
                 <h2>New</h2>
-                <div>
-                    <h3><a href="">New Hydrogen VS Electric Cars</a></h3>
-                    <p>Will hydrogen-fueled cars ever catch up to EVs?</p>
-                </div>
-                <div>
-                    <h3><a href="">The Downsides of AI Artistry</a></h3>
-                    <p>
-                        What are the possible adverse effects of on-demand AI
-                        image generation?
-                    </p>
-                </div>
-                <div>
-                    <h3><a href="">Is VC Funding Drying Up?</a></h3>
-                    <p>
-                        Private funding by VC firms is down 50% YOY. We take a
-                        look at what that means.
-                    </p>
-                </div>
-            </div>
-            <ol>
-                <li>
-                    <h2><a href="">Reviving Retro PCs</a></h2>
-                    <p>What happens when old PCs are given modern upgrades?</p>
-                </li>
-                <li>
-                    <h2><a href="">Top 10 Laptops of 2022</a></h2>
-                    <p>Our best picks for various needs and budgets.</p>
-                </li>
-                <li>
-                    <h2><a href="">The Growth of Gaming</a></h2>
-                    <p>How the pandemic has sparked fresh opportunities.</p>
-                </li>
-            </ol>
-        </section>
+                <div id="new-articles-container"></div>
+            </section>
+        </main>
     </body>
 </html>

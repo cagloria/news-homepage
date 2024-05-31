@@ -1,0 +1,67 @@
+[
+    {
+        "title": "The Bright Future of Web 3.0?",
+        "imgDesktop": "../../assets/images/image-web-3-desktop.jpg",
+        "imgMobile": "../../assets/images/image-web-3-mobile.jpg",
+        "imgAlt": "Various and colorful cubes and pins",
+        "previewDesc": "We dive into the next evolution of the web that claims to put the power of the platforms back into the hands of the people. But is it really fulfilling its promise?",
+        "url": "#",
+        "isPrimaryFeatured": true,
+        "isSecondaryFeatured": false,
+        "isNew": false
+    },
+    {
+        "title": "Reviving Retro PCs",
+        "img": "../../assets/images/image-retro-pcs.jpg",
+        "imgAlt": "A retro computer next to casette tapes",
+        "previewDesc": "What happens when old PCs are given modern upgrades?",
+        "url": "#",
+        "isPrimaryFeatured": false,
+        "isSecondaryFeatured": true,
+        "isNew": false
+    },
+    {
+        "title": "Top 10 Laptops of 2022",
+        "img": "../assets/images/image-top-laptops.jpg",
+        "imgAlt": "Keyboard keys",
+        "previewDesc": "Our best picks for various needs and budgets.",
+        "url": "#",
+        "isPrimaryFeatured": false,
+        "isSecondaryFeatured": true,
+        "isNew": false
+    },
+    {
+        "title": "The Growth of Gaming",
+        "img": "../assets/images/image-gaming-growth.jpg",
+        "imgAlt": "A white PlayStation controller hovering over a hand",
+        "previewDesc": "How the pandemic has sparked fresh opportunities.",
+        "url": "#",
+        "isPrimaryFeatured": false,
+        "isSecondaryFeatured": true,
+        "isNew": false
+    },
+    {
+        "title": "New Hydrogen VS Electric Cars",
+        "previewDesc": "Will hydrogen-fueled cars ever catch up to EVs?",
+        "url": "#",
+        "isPrimaryFeatured": false,
+        "isSecondaryFeatured": false,
+        "isNew": true
+    },
+    {
+        "title": "The Downsides of AI Artistry",
+        "previewDesc": "What are the possible adverse effects of on-demand AI image generation?",
+        "url": "#",
+        "isPrimaryFeatured": false,
+        "isSecondaryFeatured": false,
+        "isNew": true
+    },
+    {
+        "title": "Is VC Funding Drying Up?",
+        "previewDesc": "Private funding by VC firms is down 50% YOY. We take a look at what that means.",
+        "url": "#",
+        "isPrimaryFeatured": false,
+        "isSecondaryFeatured": false,
+        "isNew": true
+    }
+]
