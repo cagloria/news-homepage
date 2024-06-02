@@ -39,6 +39,13 @@ main {
     padding-right: 11.46vw;
   }
 }
+@media only screen and (min-width: 1920px) {
+  header,
+  main {
+    padding-left: 20vw;
+    padding-right: 20vw;
+  }
+}
 
 @media only screen and (min-width: 768px) {
   main {
@@ -76,7 +83,7 @@ h2 {
 
 h3 {
   font-size: clamp(1.125rem, 0.25vw + 1rem, 1.188rem);
-  letter-spacing: 0.0047rem;
+  letter-spacing: 0.07rem;
 }
 
 a {
@@ -90,6 +97,12 @@ a:hover {
 }
 a:active {
   border-bottom-color: var(--color-primary);
+}
+
+@media only screen and (min-width: 1024px) {
+  p {
+    line-height: 166%;
+  }
 }
 
 nav ul {
@@ -109,7 +122,7 @@ picture img {
 header {
   display: flex;
   padding-top: 23px;
-  padding-bottom: 23px;
+  padding-bottom: 20px;
   justify-content: space-between;
 }
 header:has(nav #nav-button[aria-expanded=true]) #nav-overlay {
@@ -125,8 +138,8 @@ header:has(nav #nav-button[aria-expanded=true]) #nav-button[aria-expanded=true] 
 }
 @media only screen and (min-width: 1024px) {
   header {
-    padding-top: 89px;
-    padding-bottom: 54px;
+    padding-top: 83px;
+    padding-bottom: 45px;
   }
 }
 
@@ -135,7 +148,7 @@ nav {
   justify-content: flex-end;
   position: relative;
 }
-@media only screen and (min-width: 1024px) {
+@media only screen and (min-width: 768px) {
   nav {
     width: 100%;
   }
@@ -143,14 +156,24 @@ nav {
 
 .nav-logo-link {
   display: block;
-  width: 46px;
-  height: 46px;
+  width: 45px;
+  height: 45px;
 }
 .nav-logo-link img {
-  width: 100%;
-  height: 100%;
+  width: 45px;
+  height: 37px;
   -o-object-fit: contain;
      object-fit: contain;
+}
+@media only screen and (min-width: 768px) {
+  .nav-logo-link {
+    width: 68px;
+    height: 55px;
+  }
+  .nav-logo-link img {
+    width: 100%;
+    height: 100%;
+  }
 }
 
 #nav-overlay {
@@ -166,23 +189,24 @@ nav {
 }
 
 #nav-menu {
-  display: flex;
-  flex-direction: column;
-  row-gap: 3px;
-  background-color: var(--color-light-00);
   position: fixed;
-  z-index: 9;
-  width: calc(66vw - var(--mobile-col-gap));
-  height: 100vh;
-  padding: 139px 4.27vw 0 var(--mobile-col-gap);
   top: 0;
   right: -200vw;
+  z-index: 9;
+  background-color: var(--color-light-00);
+  width: calc(74vw - var(--mobile-col-gap));
+  height: 100vh;
+  padding: 134px 4.27vw 0 var(--mobile-col-gap);
+  display: flex;
+  flex-direction: column;
+  row-gap: 1px;
   transition: right 0.8s ease-out;
   transition-delay: 0.1s;
 }
 #nav-menu li,
 #nav-menu a {
   width: 100%;
+  font-size: 1.125rem;
 }
 #nav-menu a {
   display: inline-block;
@@ -192,7 +216,7 @@ nav {
 #nav-menu a:hover {
   color: var(--color-secondary);
 }
-@media only screen and (min-width: 1024px) {
+@media only screen and (min-width: 768px) {
   #nav-menu {
     position: unset;
     width: unset;
@@ -200,12 +224,21 @@ nav {
     top: unset;
     right: unset;
     flex-direction: row;
+    align-items: center;
     padding: unset;
     -moz-column-gap: 40px;
          column-gap: 40px;
   }
+  #nav-menu li {
+    height: -moz-fit-content;
+    height: fit-content;
+  }
   #nav-menu a {
-    padding: 2px;
+    padding: 0;
+  }
+  #nav-menu li,
+  #nav-menu a {
+    font-size: 0.95rem;
   }
 }
 
@@ -229,7 +262,7 @@ nav {
   background-color: var(--color-primary);
   border-color: transparent;
 }
-@media only screen and (min-width: 1024px) {
+@media only screen and (min-width: 768px) {
   #nav-button {
     transform: translateX(-200vw);
   }
@@ -246,13 +279,13 @@ nav {
      object-fit: cover;
 }
 .main-article__heading {
-  margin: 29px 0 26px;
+  margin: 16px 0;
   font-weight: 800;
   font-size: clamp(2.5rem, 3.5vw + 1rem, 3.5rem);
   line-height: 100%;
 }
 .main-article .button-link {
-  margin-top: 27px;
+  margin-top: 22px;
 }
 @media only screen and (min-width: 1024px) {
   .main-article {
@@ -261,7 +294,7 @@ nav {
     align-items: start;
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 300px auto 1fr;
-    row-gap: 36px;
+    row-gap: 35px;
     -moz-column-gap: var(--desktop-col-gap);
          column-gap: var(--desktop-col-gap);
   }
@@ -281,41 +314,51 @@ nav {
   .main-article p {
     grid-row: 2;
     grid-column: 2;
+    margin-top: -1px;
   }
   .main-article .button-link {
     grid-row: 3;
     grid-column: 2;
-    margin: 0;
+    margin: -6px 0 0;
   }
 }
 
 .aside-new {
-  padding: 28px 22px 31px;
-  margin-bottom: 64px;
+  margin-bottom: 63px;
+  padding: 28px 20px 24px 22px;
 }
 .aside-new h2 {
-  margin-bottom: 42px;
-  font-size: 2rem;
+  margin-bottom: 35px;
+  font-size: clamp(2.188rem, 2vw + 1rem, 2.438rem);
 }
 @media only screen and (min-width: 768px) {
   .aside-new {
-    padding: 40px 26px;
+    margin-bottom: 78px;
+    padding: 35px 22px;
+  }
+  .aside-new h2 {
+    margin-bottom: 40px;
+  }
+  .aside-new h3 {
+    letter-spacing: 0.04rem;
   }
 }
-
-.secondary-featured {
-  margin-bottom: 81px;
-}
-@media only screen and (min-width: 768px) {
-  .secondary-featured {
-    grid-column: 1/-1;
+@media only screen and (min-width: 1024px) {
+  .aside-new {
+    margin-bottom: 72px;
+    padding: 40px 24px 33px;
   }
 }
 
 #new-articles-container {
   display: flex;
   flex-direction: column;
-  gap: 35px;
+  gap: 29px;
+}
+@media only screen and (min-width: 1024px) {
+  #new-articles-container {
+    gap: 30px;
+  }
 }
 
 .new-article::before {
@@ -324,7 +367,7 @@ nav {
   width: 100%;
   height: 1px;
   background-color: var(--color-dark-00);
-  margin-bottom: 35px;
+  margin-bottom: 29px;
 }
 .new-article:first-child::before {
   display: none;
@@ -339,7 +382,21 @@ nav {
   border-bottom-color: var(--color-secondary);
 }
 .new-article h3 {
-  margin-bottom: 16px;
+  margin-bottom: 7px;
+}
+@media only screen and (min-width: 1024px) {
+  .new-article::before {
+    margin-bottom: 31px;
+  }
+}
+
+.secondary-featured {
+  margin-bottom: 78px;
+}
+@media only screen and (min-width: 768px) {
+  .secondary-featured {
+    grid-column: 1/-1;
+  }
 }
 
 #secondary-featured-list {
@@ -353,7 +410,8 @@ nav {
 #secondary-featured-list li:before {
   content: "0" counter(item);
   counter-increment: item;
-  font-size: 2rem;
+  margin-top: 4px;
+  font-size: 2.1rem;
   font-weight: 700;
   color: var(--color-primary);
   display: inline;
@@ -370,35 +428,56 @@ nav {
 
 .secondary-article {
   display: grid;
-  grid-template-columns: 100px 1fr;
-  grid-template-rows: repeat(3, auto);
+  grid-template-columns: minmax(auto, 200px);
+  grid-template-rows: 150px repeat(3, auto);
+  justify-content: center;
   -moz-column-gap: var(--mobile-col-gap);
        column-gap: var(--mobile-col-gap);
-  row-gap: 20px;
+  row-gap: 14px;
 }
 .secondary-article > * {
   height: -moz-fit-content;
   height: fit-content;
 }
 .secondary-article::before {
-  grid-row: 1;
-  grid-column: 2;
+  grid-row: 2;
 }
 .secondary-article img {
-  grid-row: 1/-1;
-  grid-column: 1;
+  grid-row: 1;
   width: 100%;
   height: 100%;
   -o-object-fit: cover;
      object-fit: cover;
 }
 .secondary-article h3 {
-  grid-row: 2;
-  grid-column: 2;
+  grid-row: 3;
+  letter-spacing: 0.01rem;
 }
 .secondary-article p {
-  grid-row: 3;
-  grid-column: 2;
+  grid-row: 4;
+  margin-top: -8px;
+}
+@media only screen and (min-width: 375px) {
+  .secondary-article {
+    grid-template-columns: 100px 1fr;
+    grid-template-rows: repeat(3, auto);
+  }
+  .secondary-article::before {
+    grid-row: 1;
+    grid-column: 2;
+  }
+  .secondary-article img {
+    grid-row: 1/-1;
+    grid-column: 1;
+  }
+  .secondary-article h3 {
+    grid-row: 2;
+    grid-column: 2;
+  }
+  .secondary-article p {
+    grid-row: 3;
+    grid-column: 2;
+  }
 }
 @media only screen and (min-width: 768px) {
   .secondary-article {
@@ -409,6 +488,10 @@ nav {
 @media only screen and (min-width: 1024px) {
   .secondary-article {
     width: 100%;
+    row-gap: 12px;
+  }
+  .secondary-article h3 {
+    letter-spacing: -0.03rem;
   }
 }
 
@@ -433,11 +516,11 @@ nav {
   background-color: var(--color-primary);
   color: var(--color-dark-01);
   text-transform: uppercase;
-  letter-spacing: 0.23rem;
+  letter-spacing: 0.27rem;
   font-weight: 700;
   font-size: 0.875rem;
   line-height: 175%;
-  padding: 19px 32px;
+  padding: 12px 31px 10px;
   display: block;
   width: -moz-fit-content;
   width: fit-content;

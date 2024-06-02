@@ -37,6 +37,12 @@ main {
         padding-left: 11.46vw;
         padding-right: 11.46vw;
     }
+
+    @media only screen and (min-width: 1920px) {
+        padding-left: 20vw;
+        padding-right: 20vw;
+    }
+
 }
 
 main {
@@ -71,7 +77,7 @@ h2 {
 
 h3 {
     font-size: clamp(1.125rem, 0.25vw + 1rem, 1.188rem);
-    letter-spacing: 0.0047rem;
+    letter-spacing: 0.07rem;
 }
 
 a {
@@ -87,6 +93,12 @@ a {
 
     &:active {
         border-bottom-color: var(--color-primary);
+    }
+}
+
+p {
+    @media only screen and (min-width: 1024px) {
+        line-height: 166%;
     }
 }
 

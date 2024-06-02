@@ -4,7 +4,7 @@ $nav-transition-timing-function: ease-out;
 header {
     display: flex;
     padding-top: 23px;
-    padding-bottom: 23px;
+    padding-bottom: 20px;
     justify-content: space-between;
 
     &:has(nav #nav-button[aria-expanded="true"]) {
@@ -26,8 +26,8 @@ header {
     }
 
     @media only screen and (min-width: 1024px) {
-        padding-top: 89px;
-        padding-bottom: 54px;
+        padding-top: 83px;
+        padding-bottom: 45px;
     }
 }
 
@@ -36,20 +36,30 @@ nav {
     justify-content: flex-end;
     position: relative;
 
-    @media only screen and (min-width: 1024px) {
+    @media only screen and (min-width: 768px) {
         width: 100%;
     }
 }
 
 .nav-logo-link {
     display: block;
-    width: 46px;
-    height: 46px;
+    width: 45px;
+    height: 45px;
 
     img {
-        width: 100%;
-        height: 100%;
+        width: 45px;
+        height: 37px;
         object-fit: contain;
+    }
+
+    @media only screen and (min-width: 768px) {
+        width: 68px;
+        height: 55px;
+
+        img {
+            width: 100%;
+            height: 100%;
+        }
     }
 }
 
@@ -67,23 +77,24 @@ nav {
 }
 
 #nav-menu {
-    display: flex;
-    flex-direction: column;
-    row-gap: 3px;
-    background-color: var(--color-light-00);
     position: fixed;
-    z-index: 9;
-    width: calc(66vw - var(--mobile-col-gap));
-    height: 100vh;
-    padding: 139px 4.27vw 0 var(--mobile-col-gap);
     top: 0;
     right: -200vw;
+    z-index: 9;
+    background-color: var(--color-light-00);
+    width: calc(74vw - var(--mobile-col-gap));
+    height: 100vh;
+    padding: 134px 4.27vw 0 var(--mobile-col-gap);
+    display: flex;
+    flex-direction: column;
+    row-gap: 1px;
     transition: right 0.8s $nav-transition-timing-function;
     transition-delay: 0.1s;
 
     li,
     a {
         width: 100%;
+        font-size: 1.125rem;
     }
 
     a {
@@ -96,18 +107,28 @@ nav {
         }
     }
 
-    @media only screen and (min-width: 1024px) {
+    @media only screen and (min-width: 768px) {
         position: unset;
         width: unset;
         height: unset;
         top: unset;
         right: unset;
         flex-direction: row;
+        align-items: center;
         padding: unset;
         column-gap: 40px;
 
+        li {
+            height: fit-content;
+        }
+
         a {
-            padding: 2px;
+            padding: 0;
+        }
+
+        li,
+        a {
+            font-size: 0.95rem;
         }
     }
 }
@@ -135,7 +156,7 @@ nav {
         border-color: transparent;
     }
 
-    @media only screen and (min-width: 1024px) {
+    @media only screen and (min-width: 768px) {
         transform: translateX(-200vw);
     }
 }
