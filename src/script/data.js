@@ -1,18 +1,52 @@
 export function loadData() {
     fetch("./assets/data/articles.json")
-        .then((result) => result.json())
+        .then((response) => {
+            if (!response.ok) {
+                throw new Error(
+                    `Error in fetching data. Status: ${response.status}`
+                );
+            }
+            return response.json();
+        })
         .then((data) => {
-            data.forEach((article) => {
-                if (article.isPrimaryFeatured) {
-                    loadMainArticle(article);
-                }
-                if (article.isSecondaryFeatured) {
-                    createOrderedArticlesList(article);
-                }
-                if (article.isNew) {
-                    createNewArticles(article);
-                }
-            });
+            // Main article
+            const mainArticle = data.find((article) => article.isMain === true);
+            if (mainArticle !== undefined) {
+                loadMainArticle(mainArticle);
+            } else {
+                loadMainArticleError();
+                console.error("No main article found in data.");
+            }
+
+            // New articles
+            const newArticles = data.filter(
+                (article) => article.isNew === true
+            );
+            if (newArticles.length > 0) {
+                newArticles.forEach((article) => {
+                    loadNewArticles(article);
+                });
+            } else {
+                loadNewArticlesError();
+                console.error("No new articles found in data.");
+            }
+
+            // Ordered articles
+            const orderedArticles = data.filter(
+                (article) => article.isOrdered === true
+            );
+            if (orderedArticles.length > 0) {
+                orderedArticles.forEach((article) => {
+                    loadOrderedArticle(article);
+                });
+            } else {
+                loadOrderedArticleError();
+                console.error("No ordered articles found in data.");
+            }
+        })
+        .catch((errorStatus) => {
+            console.error(`${errorStatus}. Cannot load articles.`);
+            loadFetchError();
         });
 }
 
@@ -59,6 +93,7 @@ function loadMainArticle(article) {
 
     // Descripiton
     const desc = createPreviewDescription(article.previewDesc);
+    desc.classList.add("main-article__description");
 
     // Link
     const link = document.createElement("a");
@@ -77,7 +112,7 @@ function loadMainArticle(article) {
  * landing page.
  * @param {Object} article  Article object
  */
-function createOrderedArticlesList(article) {
+function loadOrderedArticle(article) {
     const list = document.getElementById("ordered-articles-list");
     const listItem = document.createElement("li");
     listItem.classList.add("secondary-article");
@@ -112,7 +147,7 @@ function createOrderedArticlesList(article) {
  * the landing page.
  * @param {Object} article  Article Object
  */
-function createNewArticles(article) {
+function loadNewArticles(article) {
     const container = document.getElementById("new-articles-container");
     const div = document.createElement("div");
     div.classList.add("new-article");
@@ -172,4 +207,77 @@ function createPreviewDescription(text) {
     const paragraphText = document.createTextNode(text);
     paragraph.append(paragraphText);
     return paragraph;
+}
+
+/**
+ * Should the articles.json file not be able to be fetched, remove main content
+ * from page and add note.
+ */
+function loadFetchError() {
+    const mainArticle = document.getElementById("primary-featured-section");
+    const aside = document.getElementById("new-articles-aside");
+    const orderedArticlesSection = document.getElementById(
+        "ordered-articles-section"
+    );
+    const fragment = new DocumentFragment();
+
+    const heading = document.createElement("h1");
+    const headingText = document.createTextNode(
+        "Looks like something went wrong"
+    );
+    const paragraph = document.createElement("p");
+    const paragraphText = document.createTextNode(
+        "We're sorry. It looks like we can't retrieve our articles. Try " +
+            "checking again later."
+    );
+
+    heading.append(headingText);
+    paragraph.append(paragraphText);
+
+    fragment.append(heading, paragraph);
+    mainArticle.append(fragment);
+    aside.remove();
+    orderedArticlesSection.remove();
+}
+
+function loadMainArticleError() {
+    const mainArticle = document.getElementById("primary-featured-section");
+    const fragment = new DocumentFragment();
+
+    const heading = document.createElement("h2");
+    const headingText = document.createTextNode(
+        "Looks like something went wrong loading the main article"
+    );
+    heading.append(headingText);
+
+    const paragraph = document.createElement("p");
+    const paragraphText = document.createTextNode(
+        "We're sorry. It looks like we can't retrieve today's main article. " +
+            " Try checking again later."
+    );
+    paragraph.append(paragraphText);
+
+    fragment.append(heading, paragraph);
+    mainArticle.append(fragment);
+}
+
+function loadOrderedArticleError() {
+    const section = document.getElementById("ordered-articles-section");
+    const list = document.getElementById("ordered-articles-list");
+
+    list.remove();
+    section.remove();
+}
+
+function loadNewArticlesError() {
+    const container = document.getElementById("new-articles-container");
+
+    const paragraph = document.createElement("p");
+    const paragraphText = document.createTextNode(
+        "We're sorry. It looks like we can't retrieve today's new articles. " +
+            " Try checking again later."
+    );
+    paragraph.append(paragraphText);
+
+    container.append(paragraph);
 }

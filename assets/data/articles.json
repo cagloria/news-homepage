@@ -6,8 +6,8 @@
         "imgAlt": "Various and colorful cubes and pins",
         "previewDesc": "We dive into the next evolution of the web that claims to put the power of the platforms back into the hands of the people. But is it really fulfilling its promise?",
         "url": "#",
-        "isPrimaryFeatured": true,
-        "isSecondaryFeatured": false,
+        "isMain": true,
+        "isOrdered": false,
         "isNew": false
     },
     {
@@ -16,8 +16,8 @@
         "imgAlt": "A retro computer next to casette tapes",
         "previewDesc": "What happens when old PCs are given modern upgrades?",
         "url": "#",
-        "isPrimaryFeatured": false,
-        "isSecondaryFeatured": true,
+        "isMain": false,
+        "isOrdered": true,
         "isNew": false
     },
     {
@@ -26,8 +26,8 @@
         "imgAlt": "Keyboard keys",
         "previewDesc": "Our best picks for various needs and budgets.",
         "url": "#",
-        "isPrimaryFeatured": false,
-        "isSecondaryFeatured": true,
+        "isMain": false,
+        "isOrdered": true,
         "isNew": false
     },
     {
@@ -36,32 +36,32 @@
         "imgAlt": "A white PlayStation controller hovering over a hand",
         "previewDesc": "How the pandemic has sparked fresh opportunities.",
         "url": "#",
-        "isPrimaryFeatured": false,
-        "isSecondaryFeatured": true,
+        "isMain": false,
+        "isOrdered": true,
         "isNew": false
     },
     {
         "title": "Hydrogen VS Electric Cars",
         "previewDesc": "Will hydrogen-fueled cars ever catch up to EVs?",
         "url": "#",
-        "isPrimaryFeatured": false,
-        "isSecondaryFeatured": false,
+        "isMain": false,
+        "isOrdered": false,
         "isNew": true
     },
     {
         "title": "The Downsides of AI Artistry",
         "previewDesc": "What are the possible adverse effects of on-demand AI image generation?",
         "url": "#",
-        "isPrimaryFeatured": false,
-        "isSecondaryFeatured": false,
+        "isMain": false,
+        "isOrdered": false,
         "isNew": true
     },
     {
         "title": "Is VC Funding Drying Up?",
         "previewDesc": "Private funding by VC firms is down 50% YOY. We take a look at what that means.",
         "url": "#",
-        "isPrimaryFeatured": false,
-        "isSecondaryFeatured": false,
+        "isMain": false,
+        "isOrdered": false,
         "isNew": true
     }
 ]
