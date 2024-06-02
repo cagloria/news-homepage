@@ -1,9 +1,13 @@
-$primary: hsl(5, 85%, 63%);
-$secondary: hsl(35, 77%, 62%);
-$light-00: hsl(36, 100%, 99%);
-$light-01: hsl(233, 8%, 79%);
-$dark-00: hsl(236, 13%, 42%);
-$dark-01: hsl(240, 100%, 5%);
+:root {
+    --mobile-col-gap: 5.87vw;
+    --desktop-col-gap: 2.08vw;
+    --color-primary: hsl(5, 85%, 63%);
+    --color-secondary: hsl(35, 77%, 62%);
+    --color-light-00: hsl(36, 100%, 99%);
+    --color-light-01: hsl(233, 8%, 79%);
+    --color-dark-00: hsl(236, 13%, 42%);
+    --color-dark-01: hsl(240, 100%, 5%);
+}
 
 @font-face {
     font-family: "Inter";
@@ -18,8 +22,8 @@ $dark-01: hsl(240, 100%, 5%);
 body {
     margin: 0;
     position: relative;
-    background-color: $light-00;
-    color: $dark-00;
+    background-color: var(--color-light-00);
+    color: var(--color-dark-00);
     font-family: "Inter", sans-serif;
     font-size: 0.9375rem;
     line-height: 175%;
@@ -28,17 +32,36 @@ body {
 header,
 main {
     padding: 0 4.27vw;
+
+    @media only screen and (min-width: 1440px) {
+        padding-left: 11.46vw;
+        padding-right: 11.46vw;
+    }
+}
+
+main {
+    @media only screen and (min-width: 768px) {
+        display: grid;
+        justify-content: stretch;
+        grid-template-columns: 3fr 2fr;
+        column-gap: var(--desktop-col-gap);
+    }
+
+    @media only screen and (min-width: 1024px) {
+        grid-template-columns: repeat(3, 1fr);
+    }
 }
 
 h1,
 h2,
 h3,
 h4 {
-    color: $dark-01;
+    color: var(--color-dark-01);
     margin: 0;
 
     a {
-        color: $dark-01;
+        color: var(--color-dark-01);
+        border-bottom-width: 2px;
     }
 }
 
@@ -47,23 +70,23 @@ h2 {
 }
 
 h3 {
-    font-size: 1.125rem;
+    font-size: clamp(1.125rem, 0.25vw + 1rem, 1.188rem);
     letter-spacing: 0.0047rem;
 }
 
 a {
-    color: $dark-00;
+    color: var(--color-dark-00);
     text-decoration: none;
-    border-bottom: 2px solid transparent;
+    border-bottom: 1px solid transparent;
     transition: color 0.2s ease-out, background-color 0.2s ease-out,
         border-bottom-color 0.2s ease-out;
 
     &:hover {
-        color: $primary;
+        color: var(--color-primary);
     }
 
     &:active {
-        border-bottom-color: $primary;
+        border-bottom-color: var(--color-primary);
     }
 }
 
