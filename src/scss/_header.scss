@@ -1,0 +1,119 @@
+$primary: hsl(5, 85%, 63%);
+$secondary: hsl(35, 77%, 62%);
+$light-00: hsl(36, 100%, 99%);
+$light-01: hsl(233, 8%, 79%);
+$dark-00: hsl(236, 13%, 42%);
+$dark-01: hsl(240, 100%, 5%);
+$nav-transition-duration: 0.4s;
+$nav-transition-timing-function: ease-out;
+
+header {
+    display: flex;
+    padding-top: 23px;
+    padding-bottom: 23px;
+    justify-content: space-between;
+
+    &:has(nav #nav-button[aria-expanded="true"]) {
+        #nav-overlay {
+            right: 0;
+        }
+
+        #nav-menu {
+            right: 0;
+            transition-delay: 0s;
+            transition-duration: $nav-transition-duration;
+        }
+    }
+}
+
+nav {
+    display: flex;
+    justify-content: flex-end;
+    position: relative;
+}
+
+.nav-logo-link {
+    display: block;
+    width: 46px;
+    height: 46px;
+
+    img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+    }
+}
+
+#nav-overlay {
+    position: fixed;
+    top: 0;
+    right: -200vw;
+    width: 100vw;
+    height: 100vh;
+    display: block;
+    background-color: hsla(240, 100%, 5%, 0.6);
+    transition: background-color $nav-transition-duration
+        $nav-transition-timing-function;
+    transition: right 0.6s $nav-transition-timing-function;
+}
+
+#nav-menu {
+    display: flex;
+    flex-direction: column;
+    row-gap: 3px;
+    background-color: $light-00;
+    position: fixed;
+    z-index: 9;
+    width: calc(66vw - 5.87vw);
+    height: 100vh;
+    padding-top: 139px;
+    padding-left: 5.87vw;
+    padding-right: 4.27vw;
+    top: 0;
+    right: -200vw;
+    transition: right 0.8s $nav-transition-timing-function;
+    transition-delay: 0.3s;
+
+    li,
+    a {
+        width: 100%;
+    }
+
+    a {
+        display: inline-block;
+        color: $dark-01;
+        padding: 10px 0;
+
+        &:hover {
+            color: $secondary;
+        }
+    }
+}
+
+#nav-button {
+    width: 2.5625rem;
+    height: 2.5625rem;
+    padding: 0;
+    background-color: transparent;
+    border: none;
+    background-image: url("../../assets/images/icon-menu.svg");
+    background-position: center;
+    background-repeat: no-repeat;
+    z-index: 10;
+    border-bottom: 3px transparent solid;
+    transition: border-color 0.2s $nav-transition-timing-function,
+        background-color 0.2s $nav-transition-timing-function;
+
+    &[aria-expanded="true"] {
+        background-image: url("../../assets/images/icon-menu-close.svg");
+    }
+
+    &:hover {
+        border-color: $primary;
+    }
+
+    &:active {
+        background-color: $primary;
+        border-color: transparent;
+    }
+}

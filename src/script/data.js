@@ -1,10 +1,10 @@
-window.onload = function () {
+export function loadData() {
     fetch("./assets/data/articles.json")
         .then((result) => result.json())
-        .then((data) =>
+        .then((data) => {
             data.forEach((article) => {
                 if (article.isPrimaryFeatured) {
-                    loadPrimaryFeaturedArticle(article);
+                    loadMainArticle(article);
                 }
                 if (article.isSecondaryFeatured) {
                     createSecondaryFeaturedList(article);
@@ -12,23 +12,38 @@ window.onload = function () {
                 if (article.isNew) {
                     createNewArticles(article);
                 }
-            })
-        );
-};
+            });
+        });
+}
 
 /**
  * Creates the article preview element for the main featured article and append
  * it to the landing page.
  * @param {Object} article  Article object
  */
-function loadPrimaryFeaturedArticle(article) {
+function loadMainArticle(article) {
     const container = document.getElementById("primary-featured-container");
 
     // Image
+    const picture = document.createElement("picture");
+    picture.classList.add("main-article__image");
+
+    const sourceMobile = document.createElement("source");
+    sourceMobile.setAttribute("media", "(max-width: 686px)");
+    sourceMobile.setAttribute("srcset", article.imgMobile);
+
+    const sourceDesktop = document.createElement("source");
+    sourceDesktop.setAttribute("media", "(min-width: 687px)");
+    sourceDesktop.setAttribute("srcset", article.imgDesktop);
+
     const image = document.createElement("img");
     image.setAttribute("src", article.imgMobile);
     image.setAttribute("alt", article.imgAlt);
     image.setAttribute("loading", "lazy");
+
+    picture.appendChild(sourceMobile);
+    picture.appendChild(sourceDesktop);
+    picture.appendChild(image);
 
     // Link
     const link = document.createElement("a");
@@ -38,9 +53,14 @@ function loadPrimaryFeaturedArticle(article) {
     link.appendChild(linkText);
 
     // Add to container
-    container.appendChild(image);
+    container.appendChild(picture);
     container.appendChild(
-        createArticleHeading(article.title, article.url, false)
+        createArticleHeading(
+            article.title,
+            article.url,
+            false,
+            "main-article__heading"
+        )
     );
     container.appendChild(createPreviewDescription(article.previewDesc));
     container.appendChild(link);
@@ -54,6 +74,7 @@ function loadPrimaryFeaturedArticle(article) {
 function createSecondaryFeaturedList(article) {
     const list = document.getElementById("secondary-featured-list");
     const listItem = document.createElement("li");
+    listItem.classList.add("secondary-article");
 
     // Image
     const image = document.createElement("img");
@@ -64,7 +85,7 @@ function createSecondaryFeaturedList(article) {
     // Add to list item
     listItem.appendChild(image);
     listItem.appendChild(
-        createArticleHeading(article.title, article.url, true)
+        createArticleHeading(article.title, article.url, true, "", "h3")
     );
     listItem.appendChild(createPreviewDescription(article.previewDesc));
 
@@ -80,9 +101,12 @@ function createSecondaryFeaturedList(article) {
 function createNewArticles(article) {
     const container = document.getElementById("new-articles-container");
     const div = document.createElement("div");
+    div.classList.add("new-article");
 
     // Add to div
-    div.appendChild(createArticleHeading(article.title, article.url, true));
+    div.appendChild(
+        createArticleHeading(article.title, article.url, true, "", "h3")
+    );
     div.appendChild(createPreviewDescription(article.previewDesc));
 
     // Add to container
@@ -95,11 +119,16 @@ function createNewArticles(article) {
  * @param {String} url      URL of article
  * @param {Boolean} hasLink If this heading should also contain a link to the
  *                          article
+ * @param {String} hLevel   The heading level, default to H2
  * @returns                 Heading element
  */
-function createArticleHeading(title, url, hasLink) {
-    const heading = document.createElement("h2");
+function createArticleHeading(title, url, hasLink, className, hLevel = "h2") {
+    const heading = document.createElement(hLevel);
     const headingText = document.createTextNode(title);
+
+    if (className.length > 0) {
+        heading.classList.add(className);
+    }
 
     if (hasLink) {
         const link = document.createElement("a");

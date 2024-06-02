@@ -1,0 +1,129 @@
+$primary: hsl(5, 85%, 63%);
+$secondary: hsl(35, 77%, 62%);
+$light-00: hsl(36, 100%, 99%);
+$light-01: hsl(233, 8%, 79%);
+$dark-00: hsl(236, 13%, 42%);
+$dark-01: hsl(240, 100%, 5%);
+
+.main-article {
+    margin-bottom: 64px;
+
+    picture,
+    img,
+    source {
+        height: 300px;
+        object-fit: cover;
+    }
+
+    &__heading {
+        margin: 29px 0 26px;
+        font-weight: 800;
+        font-size: 2.5rem;
+        line-height: 100%;
+    }
+
+    .button-link {
+        margin-top: 27px;
+    }
+}
+
+.aside-new {
+    padding: 28px 5.87vw 31px;
+    margin-bottom: 64px;
+
+    h2 {
+        margin-bottom: 42px;
+        font-size: 2rem;
+    }
+}
+
+.secondary-featured {
+    margin-bottom: 81px;
+}
+
+#new-articles-container {
+    display: flex;
+    flex-direction: column;
+    gap: 35px;
+}
+
+.new-article {
+    &::before {
+        content: "";
+        display: block;
+        width: 100%;
+        height: 1px;
+        background-color: $dark-00;
+        margin-bottom: 35px;
+    }
+
+    &:first-child {
+        &::before {
+            display: none;
+        }
+    }
+
+    a {
+        color: $light-00;
+
+        &:hover {
+            color: $secondary;
+        }
+
+        &:active {
+            border-bottom-color: $secondary;
+        }
+    }
+
+    h3 {
+        margin-bottom: 16px;
+    }
+}
+
+#secondary-featured-list {
+    padding-left: 0;
+    list-style-type: none;
+    display: flex;
+    flex-direction: column;
+    gap: 33px;
+    counter-reset: item;
+
+    li:before {
+        content: "0" counter(item);
+        counter-increment: item;
+        font-size: 2rem;
+        font-weight: 700;
+        color: $primary;
+    }
+}
+
+.secondary-article {
+    display: grid;
+    grid-template-columns: 100px 1fr;
+    grid-template-rows: repeat(3, auto);
+    column-gap: 5.87vw;
+    row-gap: 20px;
+
+    img {
+        grid-row: 1 / -1;
+        grid-column: 1 / 1;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    ::before {
+        grid-row: 1;
+        grid-column: 2;
+    }
+
+    h3 {
+        grid-row: 2;
+        grid-column: 2;
+    }
+
+    p {
+        grid-row: 3;
+        grid-column: 2;
+    }
+}

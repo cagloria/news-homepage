@@ -1,0 +1,60 @@
+$primary: hsl(5, 85%, 63%);
+$secondary: hsl(35, 77%, 62%);
+$light-00: hsl(36, 100%, 99%);
+$light-01: hsl(233, 8%, 79%);
+$dark-00: hsl(236, 13%, 42%);
+$dark-01: hsl(240, 100%, 5%);
+
+#skip-link {
+    display: block;
+    background-color: $primary;
+    color: $dark-01;
+    padding: 2px 10px;
+    position: absolute;
+    z-index: 99;
+    top: -200vh;
+    left: 0;
+    transition: transform 0.2s ease-out;
+    transition-delay: 2s;
+
+    &:focus {
+        transform: translateY(200vh);
+        transition-delay: 0s;
+    }
+}
+
+.button-link {
+    background-color: $primary;
+    color: $dark-01;
+    text-transform: uppercase;
+    letter-spacing: 0.23rem;
+    font-weight: 700;
+    font-size: 0.875rem;
+    line-height: 175%;
+    padding: 19px 32px;
+    display: block;
+    width: fit-content;
+    border-bottom: 3px solid transparent;
+    transition: background-color 0.2s ease-out, color 0.2s ease-out,
+        border-bottom-color 0.2s ease-out;
+
+    &:hover {
+        background-color: $dark-01;
+        color: $light-00;
+    }
+
+    &:active {
+        background-color: transparent;
+        color: $dark-01;
+        border-bottom-color: $primary;
+    }
+}
+
+.background-dark-01 {
+    background-color: $dark-01 !important;
+    color: $light-01;
+}
+
+.text-color-secondary {
+    color: $secondary !important;
+}
