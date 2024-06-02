@@ -37,8 +37,9 @@ export function setUpNav() {
  */
 function setNavStatePerLayout(isDesktop) {
     const button = document.getElementById("nav-button");
+    console.log({ isDesktop });
 
-    button.setAttribute("aria-hidden", `${isDesktop}`);
+    button.setAttribute("aria-hidden", isDesktop);
     button.setAttribute("tabindex", isDesktop ? "-1" : "0");
     button.setAttribute("aria-label", "Open navigation");
     button.setAttribute("aria-expanded", "false");
@@ -74,6 +75,7 @@ function toggleMobileNav() {
  */
 function setNavLinksTabindex(isDesktopOrOpenNav) {
     const navLinks = document.querySelectorAll("nav a");
+    const button = document.getElementById("nav-button");
 
     navLinks.forEach((link) => {
         link.setAttribute("tabindex", isDesktopOrOpenNav ? "0" : "-1");
