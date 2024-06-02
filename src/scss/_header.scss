@@ -24,12 +24,21 @@ header {
             }
         }
     }
+
+    @media only screen and (min-width: 1024px) {
+        padding-top: 89px;
+        padding-bottom: 54px;
+    }
 }
 
 nav {
     display: flex;
     justify-content: flex-end;
     position: relative;
+
+    @media only screen and (min-width: 1024px) {
+        width: 100%;
+    }
 }
 
 .nav-logo-link {
@@ -86,6 +95,21 @@ nav {
             color: var(--color-secondary);
         }
     }
+
+    @media only screen and (min-width: 1024px) {
+        position: unset;
+        width: unset;
+        height: unset;
+        top: unset;
+        right: unset;
+        flex-direction: row;
+        padding: unset;
+        column-gap: 40px;
+
+        a {
+            padding: 2px;
+        }
+    }
 }
 
 #nav-button {
@@ -109,5 +133,9 @@ nav {
     &:active {
         background-color: var(--color-primary);
         border-color: transparent;
+    }
+
+    @media only screen and (min-width: 1024px) {
+        transform: translateX(-200vw);
     }
 }

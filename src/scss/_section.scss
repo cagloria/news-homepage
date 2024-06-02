@@ -24,7 +24,7 @@
         display: grid;
         align-items: start;
         grid-template-columns: 1fr 1fr;
-        grid-template-rows: 300px auto auto;
+        grid-template-rows: 300px auto 1fr;
         row-gap: 36px;
         column-gap: var(--desktop-col-gap);
 
