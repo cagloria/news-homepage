@@ -126,4 +126,8 @@ $dark-01: hsl(240, 100%, 5%);
         grid-row: 3;
         grid-column: 2;
     }
+
+    @media screen and (min-width: 426px) {
+        grid-template-columns: 1fr 1fr;
+    }
 }

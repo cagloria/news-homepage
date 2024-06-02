@@ -86,6 +86,9 @@ header:has(nav #nav-button[aria-expanded=true]) #nav-menu {
   transition-delay: 0s;
   transition-duration: 0.4s;
 }
+header:has(nav #nav-button[aria-expanded=true]) #nav-button[aria-expanded=true] {
+  background-image: url("../../assets/images/icon-menu-close.svg");
+}
 
 nav {
   display: flex;
@@ -126,13 +129,11 @@ nav {
   z-index: 9;
   width: 60.13vw;
   height: 100vh;
-  padding-top: 139px;
-  padding-left: 5.87vw;
-  padding-right: 4.27vw;
+  padding: 139px 4.27vw 0 5.87vw;
   top: 0;
   right: -200vw;
-  transition: right 0.8s ease-out;
-  transition-delay: 0.3s;
+  transition: right 0.7s ease-out;
+  transition-delay: 0.2s;
 }
 #nav-menu li,
 #nav-menu a {
@@ -159,9 +160,6 @@ nav {
   z-index: 10;
   border-bottom: 3px transparent solid;
   transition: border-color 0.2s ease-out, background-color 0.2s ease-out;
-}
-#nav-button[aria-expanded=true] {
-  background-image: url("../../assets/images/icon-menu-close.svg");
 }
 #nav-button:hover {
   border-color: hsl(5, 85%, 63%);
@@ -278,6 +276,11 @@ nav {
   grid-row: 3;
   grid-column: 2;
 }
+@media screen and (min-width: 426px) {
+  .secondary-article {
+    grid-template-columns: 1fr 1fr;
+  }
+}
 
 #skip-link {
   display: block;
@@ -308,7 +311,7 @@ nav {
   display: block;
   width: -moz-fit-content;
   width: fit-content;
-  border-bottom: 3px solid transparent;
+  border-bottom-width: 3px;
   transition: background-color 0.2s ease-out, color 0.2s ease-out, border-bottom-color 0.2s ease-out;
 }
 .button-link:hover {

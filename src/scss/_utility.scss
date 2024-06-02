@@ -34,7 +34,7 @@ $dark-01: hsl(240, 100%, 5%);
     padding: 19px 32px;
     display: block;
     width: fit-content;
-    border-bottom: 3px solid transparent;
+    border-bottom-width: 3px;
     transition: background-color 0.2s ease-out, color 0.2s ease-out,
         border-bottom-color 0.2s ease-out;
 
