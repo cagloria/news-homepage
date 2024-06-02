@@ -7,7 +7,7 @@ export function loadData() {
                     loadMainArticle(article);
                 }
                 if (article.isSecondaryFeatured) {
-                    createSecondaryFeaturedList(article);
+                    createOrderedArticlesList(article);
                 }
                 if (article.isNew) {
                     createNewArticles(article);
@@ -22,7 +22,10 @@ export function loadData() {
  * @param {Object} article  Article object
  */
 function loadMainArticle(article) {
-    const container = document.getElementById("primary-featured-container");
+    const articleContainer = document.getElementById(
+        "primary-featured-section"
+    );
+    const fragment = new DocumentFragment();
 
     // Image
     const picture = document.createElement("picture");
@@ -41,29 +44,32 @@ function loadMainArticle(article) {
     image.setAttribute("alt", article.imgAlt);
     image.setAttribute("loading", "lazy");
 
-    picture.appendChild(sourceMobile);
-    picture.appendChild(sourceDesktop);
-    picture.appendChild(image);
+    picture.append(sourceMobile);
+    picture.append(sourceDesktop);
+    picture.append(image);
+
+    // Heading
+    const heading = createArticleHeading(
+        article.title,
+        article.url,
+        false,
+        "main-article__heading",
+        "h2"
+    );
+
+    // Descripiton
+    const desc = createPreviewDescription(article.previewDesc);
 
     // Link
     const link = document.createElement("a");
+    const linkText = document.createTextNode("Read more");
     link.setAttribute("href", article.url);
     link.classList.add("button-link");
-    const linkText = document.createTextNode("Read more");
-    link.appendChild(linkText);
+    link.append(linkText);
 
     // Add to container
-    container.appendChild(picture);
-    container.appendChild(
-        createArticleHeading(
-            article.title,
-            article.url,
-            false,
-            "main-article__heading"
-        )
-    );
-    container.appendChild(createPreviewDescription(article.previewDesc));
-    container.appendChild(link);
+    fragment.append(picture, heading, desc, link);
+    articleContainer.append(fragment);
 }
 
 /**
@@ -71,8 +77,8 @@ function loadMainArticle(article) {
  * landing page.
  * @param {Object} article  Article object
  */
-function createSecondaryFeaturedList(article) {
-    const list = document.getElementById("secondary-featured-list");
+function createOrderedArticlesList(article) {
+    const list = document.getElementById("ordered-articles-list");
     const listItem = document.createElement("li");
     listItem.classList.add("secondary-article");
 
@@ -82,15 +88,23 @@ function createSecondaryFeaturedList(article) {
     image.setAttribute("alt", article.imgAlt);
     image.setAttribute("loading", "lazy");
 
-    // Add to list item
-    listItem.appendChild(image);
-    listItem.appendChild(
-        createArticleHeading(article.title, article.url, true, "", "h3")
+    // Heading
+    const heading = createArticleHeading(
+        article.title,
+        article.url,
+        true,
+        "",
+        "h3"
     );
-    listItem.appendChild(createPreviewDescription(article.previewDesc));
+
+    // Description
+    const desc = createPreviewDescription(article.previewDesc);
+
+    // Add to list item
+    listItem.append(image, heading, desc);
 
     // Add to list
-    list.appendChild(listItem);
+    list.append(listItem);
 }
 
 /**
@@ -103,14 +117,20 @@ function createNewArticles(article) {
     const div = document.createElement("div");
     div.classList.add("new-article");
 
-    // Add to div
-    div.appendChild(
-        createArticleHeading(article.title, article.url, true, "", "h3")
+    const heading = createArticleHeading(
+        article.title,
+        article.url,
+        true,
+        "",
+        "h3"
     );
-    div.appendChild(createPreviewDescription(article.previewDesc));
+    const desc = createPreviewDescription(article.previewDesc);
+
+    // Add to div
+    div.append(heading, desc);
 
     // Add to container
-    container.appendChild(div);
+    container.append(div);
 }
 
 /**
@@ -133,10 +153,10 @@ function createArticleHeading(title, url, hasLink, className, hLevel = "h2") {
     if (hasLink) {
         const link = document.createElement("a");
         link.setAttribute("href", url);
-        link.appendChild(headingText);
-        heading.appendChild(link);
+        link.append(headingText);
+        heading.append(link);
     } else {
-        heading.appendChild(headingText);
+        heading.append(headingText);
     }
 
     return heading;
@@ -150,6 +170,6 @@ function createArticleHeading(title, url, hasLink, className, hLevel = "h2") {
 function createPreviewDescription(text) {
     const paragraph = document.createElement("p");
     const paragraphText = document.createTextNode(text);
-    paragraph.appendChild(paragraphText);
+    paragraph.append(paragraphText);
     return paragraph;
 }

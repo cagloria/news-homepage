@@ -323,28 +323,28 @@ nav {
   }
 }
 
-.aside-new {
+.new-articles-aside {
   margin-bottom: 63px;
   padding: 28px 20px 24px 22px;
 }
-.aside-new h2 {
+.new-articles-aside h2 {
   margin-bottom: 35px;
   font-size: clamp(2.188rem, 2vw + 1rem, 2.438rem);
 }
 @media only screen and (min-width: 768px) {
-  .aside-new {
+  .new-articles-aside {
     margin-bottom: 78px;
     padding: 35px 22px;
   }
-  .aside-new h2 {
+  .new-articles-aside h2 {
     margin-bottom: 40px;
   }
-  .aside-new h3 {
+  .new-articles-aside h3 {
     letter-spacing: 0.04rem;
   }
 }
 @media only screen and (min-width: 1024px) {
-  .aside-new {
+  .new-articles-aside {
     margin-bottom: 72px;
     padding: 40px 24px 33px;
   }
@@ -390,16 +390,16 @@ nav {
   }
 }
 
-.secondary-featured {
+.ordered-articles-section {
   margin-bottom: 78px;
 }
 @media only screen and (min-width: 768px) {
-  .secondary-featured {
+  .ordered-articles-section {
     grid-column: 1/-1;
   }
 }
 
-#secondary-featured-list {
+#ordered-articles-list {
   padding-left: 0;
   list-style-type: none;
   display: flex;
@@ -407,7 +407,7 @@ nav {
   gap: 33px;
   counter-reset: item;
 }
-#secondary-featured-list li:before {
+#ordered-articles-list li:before {
   content: "0" counter(item);
   counter-increment: item;
   margin-top: 4px;
@@ -419,7 +419,7 @@ nav {
   height: fit-content;
 }
 @media only screen and (min-width: 1024px) {
-  #secondary-featured-list {
+  #ordered-articles-list {
     flex-direction: row;
     -moz-column-gap: var(--desktop-col-gap);
          column-gap: var(--desktop-col-gap);

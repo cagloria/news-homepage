@@ -58,7 +58,7 @@
     }
 }
 
-.aside-new {
+.new-articles-aside {
     margin-bottom: 63px;
     padding: 28px 20px 24px 22px;
 
@@ -135,7 +135,7 @@
     }
 }
 
-.secondary-featured {
+.ordered-articles-section {
     margin-bottom: 78px;
 
     @media only screen and (min-width: 768px) {
@@ -143,7 +143,7 @@
     }
 }
 
-#secondary-featured-list {
+#ordered-articles-list {
     padding-left: 0;
     list-style-type: none;
     display: flex;
