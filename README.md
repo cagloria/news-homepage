@@ -4,7 +4,7 @@
 
 <p align="center">⚠️ This project is in development. ⚠️</p>
 
-This is a solution to the [News homepage challenge on Frontend Mentor](https://www.frontendmentor.io/challenges/news-homepage-H6SWTa1MFl). This page utilizes HTML, CSS, and JavaScript, as well as responsive layout and accessbility practices.
+This is a solution to the [News homepage challenge on Frontend Mentor](https://www.frontendmentor.io/challenges/news-homepage-H6SWTa1MFl). This page utilizes HTML, CSS, and JavaScript, as well as responsive layout and accessibility practices.
 
 ## Table of contents
 

@@ -37,7 +37,6 @@ export function setUpNav() {
  */
 function setNavStatePerLayout(isDesktop) {
     const button = document.getElementById("nav-button");
-    console.log({ isDesktop });
 
     button.setAttribute("aria-hidden", isDesktop);
     button.setAttribute("tabindex", isDesktop ? "-1" : "0");
