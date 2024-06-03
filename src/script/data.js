@@ -22,14 +22,7 @@ export function loadData() {
             const orderedArticles = data.filter(
                 (article) => article.isOrdered === true
             );
-            if (orderedArticles.length > 0) {
-                orderedArticles.forEach((article) => {
-                    loadOrderedArticle(article);
-                });
-            } else {
-                loadOrderedArticleError();
-                console.error("No ordered articles found in data.");
-            }
+            loadOrderedArticles(orderedArticles);
         })
         .catch((errorStatus) => {
             console.error(`${errorStatus}`);
@@ -44,6 +37,7 @@ export function loadData() {
  */
 function loadMainArticle(article) {
     const container = document.getElementById("main-article");
+    const placeholder = document.getElementById("main-placeholder");
 
     try {
         const fragment = new DocumentFragment();
@@ -78,7 +72,7 @@ function loadMainArticle(article) {
             "h2"
         );
 
-        // Descripiton
+        // Description
         const desc = createDescription(article.previewDesc);
         desc.classList.add("main-article__description");
 
@@ -92,21 +86,19 @@ function loadMainArticle(article) {
         // Add to container
         fragment.append(picture, heading, desc, link);
         container.append(fragment);
-    } catch {
-        const mainSection = document.getElementById("main-article-section");
 
+        placeholder.remove();
+    } catch (error) {
         const errorElement = getErrorElement(
             "h2",
             "Looks like something went wrong loading the main article",
-            "We're sorry. It looks like we can't retrieve today's main " +
+            "We're sorry, it looks like we can't retrieve today's main " +
                 "article.  Try checking again later."
         );
-
-        mainSection.append(errorElement);
-
+        placeholder.replaceChildren(errorElement);
         container.remove();
 
-        console.error("Unable to load main article.");
+        console.error(`Unable to load main article.\n${error}`);
     }
 }
 
@@ -116,10 +108,12 @@ function loadMainArticle(article) {
  * @param {Object} arr  Array of new articles
  */
 function loadNewArticles(arr) {
-    const aside = document.getElementById("new-articles-aside");
     const container = document.getElementById("new-articles-container");
+    const placeholder = document.getElementById("new-placeholder");
 
     try {
+        const fragment = new DocumentFragment();
+
         arr.forEach((article) => {
             if (article !== undefined) {
                 const div = document.createElement("div");
@@ -136,10 +130,13 @@ function loadNewArticles(arr) {
                 const desc = createDescription(article.previewDesc);
 
                 div.append(heading, desc);
-                container.append(div);
+                fragment.append(div);
             }
         });
-    } catch {
+
+        container.append(fragment);
+        placeholder.remove();
+    } catch (error) {
         const errorElement = getErrorElement(
             "",
             "",
@@ -147,55 +144,68 @@ function loadNewArticles(arr) {
                 "articles. Try again later."
         );
 
-        aside.append(errorElement);
-
+        placeholder.replaceChildren(errorElement);
         container.remove();
-        console.error("Cannot load new articles.");
+
+        console.error(`Cannot load new articles.\n${error}`);
     }
 }
 
 /**
  * Create the element of articles and append them to the numbered list on the
  * landing page.
- * @param {Object} article  Article object
+ * @param {Object} arr  Array of ordered articles
  */
-function loadOrderedArticle(article) {
+function loadOrderedArticles(arr) {
     const list = document.getElementById("ordered-articles-list");
+    const placeholder = document.getElementById("ordered-placeholder");
 
     try {
-        const listItem = document.createElement("li");
-        listItem.classList.add("secondary-article");
+        const fragment = new DocumentFragment();
 
-        // Image
-        const image = document.createElement("img");
-        image.setAttribute("src", article.img);
-        image.setAttribute("alt", article.imgAlt);
-        image.setAttribute("loading", "lazy");
+        arr.forEach((article) => {
+            const listItem = document.createElement("li");
+            listItem.classList.add("secondary-article");
 
-        // Heading
-        const heading = createArticleHeading(
-            article.title,
-            article.url,
-            true,
-            "",
-            "h3"
+            // Image
+            const image = document.createElement("img");
+            image.setAttribute("src", article.img);
+            image.setAttribute("alt", article.imgAlt);
+            image.setAttribute("loading", "lazy");
+
+            // Heading
+            const heading = createArticleHeading(
+                article.title,
+                article.url,
+                true,
+                "",
+                "h3"
+            );
+
+            // Description
+            const desc = createDescription(article.previewDesc);
+
+            // Add to list item
+            listItem.append(image, heading, desc);
+
+            // Add to list
+            fragment.append(listItem);
+        });
+
+        placeholder.remove();
+        list.append(fragment);
+    } catch (error) {
+        const errorElement = getErrorElement(
+            "h2",
+            "Looks like something went wrong loading our articles",
+            "We're sorry, it looks like we can't retrieve our articles. " +
+                " Try checking again later."
         );
 
-        // Description
-        const desc = createDescription(article.previewDesc);
-
-        // Add to list item
-        listItem.append(image, heading, desc);
-
-        // Add to list
-        list.append(listItem);
-    } catch (error) {
-        const section = document.getElementById("ordered-articles-section");
-
         list.remove();
-        section.remove();
+        placeholder.replaceChildren(errorElement);
 
-        console.error("Unable to load new articles.");
+        console.error(`Unable to load ordered articles.\n${error}`);
     }
 }
 
@@ -253,26 +263,18 @@ function loadFetchError() {
         "ordered-articles-section"
     );
 
-    const errorElemenet = getErrorElement(
+    const errorElement = getErrorElement(
         "h1",
         "Looks like something went wrong",
         "We're sorry. It looks like we can't retrieve our articles. " +
             "Try checking again later."
     );
 
-    mainArticleSection.append(errorElemenet);
+    mainArticleSection.append(errorElement);
 
     mainArticle.remove();
     aside.remove();
     orderedArticlesSection.remove();
-}
-
-function loadOrderedArticleError() {
-    const section = document.getElementById("ordered-articles-section");
-    const list = document.getElementById("ordered-articles-list");
-
-    list.remove();
-    section.remove();
 }
 
 /**
