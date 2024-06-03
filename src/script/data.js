@@ -1,3 +1,12 @@
+import {
+    createArticleHeading,
+    createDescription,
+    getErrorElement,
+} from "./utility.js";
+
+/**
+ * Fetches data from articles.json and loads article data into the home page.
+ */
 export function loadData() {
     fetch("./assets/data/articles.json")
         .then((response) => {
@@ -32,7 +41,7 @@ export function loadData() {
 
 /**
  * Creates the article preview element for the main featured article and append
- * it to the landing page.
+ * it to the home page.
  * @param {Object} article  Article object
  */
 function loadMainArticle(article) {
@@ -95,6 +104,7 @@ function loadMainArticle(article) {
             "We're sorry, it looks like we can't retrieve today's main " +
                 "article.  Try checking again later."
         );
+
         placeholder.replaceChildren(errorElement);
         container.remove();
 
@@ -104,7 +114,7 @@ function loadMainArticle(article) {
 
 /**
  * Create the element of articles showing in the "New" section and append it to
- * the landing page.
+ * the home page.
  * @param {Object} arr  Array of new articles
  */
 function loadNewArticles(arr) {
@@ -153,7 +163,7 @@ function loadNewArticles(arr) {
 
 /**
  * Create the element of articles and append them to the numbered list on the
- * landing page.
+ * home page.
  * @param {Object} arr  Array of ordered articles
  */
 function loadOrderedArticles(arr) {
@@ -210,48 +220,6 @@ function loadOrderedArticles(arr) {
 }
 
 /**
- * Create a heading element for an article
- * @param {String} title        Heading text
- * @param {String} url          URL of article
- * @param {Boolean} hasLink     If this heading should also contain a link to the
- *                              article
- * @param {String} className    A CSS class name for the heading
- * @param {String} hLevel       The heading level, default to H2
- * @returns                     Heading element
- */
-function createArticleHeading(title, url, hasLink, className, hLevel = "h2") {
-    const heading = document.createElement(hLevel);
-    const headingText = document.createTextNode(title);
-
-    if (className.length > 0) {
-        heading.classList.add(className);
-    }
-
-    if (hasLink) {
-        const link = document.createElement("a");
-        link.setAttribute("href", url);
-        link.append(headingText);
-        heading.append(link);
-    } else {
-        heading.append(headingText);
-    }
-
-    return heading;
-}
-
-/**
- * Creates a paragraph element of the article preview text.
- * @param {String} text Description text
- * @returns             Paragraph element with description text
- */
-function createDescription(text) {
-    const paragraph = document.createElement("p");
-    const paragraphText = document.createTextNode(text);
-    paragraph.append(paragraphText);
-    return paragraph;
-}
-
-/**
  * Should the articles.json file not be able to be fetched, remove main content
  * from page and add note.
  */
@@ -275,34 +243,4 @@ function loadFetchError() {
     mainArticle.remove();
     aside.remove();
     orderedArticlesSection.remove();
-}
-
-/**
- *
- * @param {String} headingLevel Element heading level
- * @param {String} headingText Text of heading element
- * @param {String} paragraphText Text of paragraph
- * @returns
- */
-function getErrorElement(headingLevel = "h2", headingText, paragraphText) {
-    const container = document.createElement("div");
-    container.classList.add("error-element");
-
-    if (headingLevel.length > 0) {
-        const heading = document.createElement(headingLevel);
-        const headingTextNode = document.createTextNode(headingText);
-        heading.append(headingTextNode);
-        heading.classList.add("error-element__heading");
-
-        container.append(heading);
-    }
-
-    const paragraph = document.createElement("p");
-    const paragraphTextNode = document.createTextNode(paragraphText);
-    paragraph.append(paragraphTextNode);
-    paragraph.classList.add("error-element__paragraph");
-
-    container.append(paragraph);
-
-    return container;
 }
