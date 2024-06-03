@@ -16,9 +16,7 @@ export function loadData() {
             const newArticles = data.filter(
                 (article) => article.isNew === true
             );
-            newArticles.forEach((article) => {
-                loadNewArticles(article);
-            });
+            loadNewArticles(newArticles);
 
             // Ordered articles
             const orderedArticles = data.filter(
@@ -81,7 +79,7 @@ function loadMainArticle(article) {
         );
 
         // Descripiton
-        const desc = createPreviewDescription(article.previewDesc);
+        const desc = createDescription(article.previewDesc);
         desc.classList.add("main-article__description");
 
         // Link
@@ -115,27 +113,45 @@ function loadMainArticle(article) {
 /**
  * Create the element of articles showing in the "New" section and append it to
  * the landing page.
- * @param {Object} article  Article Object
+ * @param {Object} arr  Array of new articles
  */
-function loadNewArticles(article) {
+function loadNewArticles(arr) {
+    const aside = document.getElementById("new-articles-aside");
     const container = document.getElementById("new-articles-container");
-    const div = document.createElement("div");
-    div.classList.add("new-article");
 
-    const heading = createArticleHeading(
-        article.title,
-        article.url,
-        true,
-        "",
-        "h3"
-    );
-    const desc = createPreviewDescription(article.previewDesc);
+    try {
+        arr.forEach((article) => {
+            if (article !== undefined) {
+                const div = document.createElement("div");
+                div.classList.add("new-article");
 
-    // Add to div
-    div.append(heading, desc);
+                const heading = createArticleHeading(
+                    article.title,
+                    article.url,
+                    true,
+                    "",
+                    "h3"
+                );
 
-    // Add to container
-    container.append(div);
+                const desc = createDescription(article.previewDesc);
+
+                div.append(heading, desc);
+                container.append(div);
+            }
+        });
+    } catch {
+        const errorElement = getErrorElement(
+            "",
+            "",
+            "We're sorry, it looks like we can't retrieve our newest " +
+                "articles. Try again later."
+        );
+
+        aside.append(errorElement);
+
+        container.remove();
+        console.error("Cannot load new articles.");
+    }
 }
 
 /**
@@ -166,7 +182,7 @@ function loadOrderedArticle(article) {
         );
 
         // Description
-        const desc = createPreviewDescription(article.previewDesc);
+        const desc = createDescription(article.previewDesc);
 
         // Add to list item
         listItem.append(image, heading, desc);
@@ -185,12 +201,13 @@ function loadOrderedArticle(article) {
 
 /**
  * Create a heading element for an article
- * @param {String} title    Heading text
- * @param {String} url      URL of article
- * @param {Boolean} hasLink If this heading should also contain a link to the
- *                          article
- * @param {String} hLevel   The heading level, default to H2
- * @returns                 Heading element
+ * @param {String} title        Heading text
+ * @param {String} url          URL of article
+ * @param {Boolean} hasLink     If this heading should also contain a link to the
+ *                              article
+ * @param {String} className    A CSS class name for the heading
+ * @param {String} hLevel       The heading level, default to H2
+ * @returns                     Heading element
  */
 function createArticleHeading(title, url, hasLink, className, hLevel = "h2") {
     const heading = document.createElement(hLevel);
@@ -217,7 +234,7 @@ function createArticleHeading(title, url, hasLink, className, hLevel = "h2") {
  * @param {String} text Description text
  * @returns             Paragraph element with description text
  */
-function createPreviewDescription(text) {
+function createDescription(text) {
     const paragraph = document.createElement("p");
     const paragraphText = document.createTextNode(text);
     paragraph.append(paragraphText);
@@ -235,23 +252,15 @@ function loadFetchError() {
     const orderedArticlesSection = document.getElementById(
         "ordered-articles-section"
     );
-    const fragment = new DocumentFragment();
 
-    const heading = document.createElement("h1");
-    const headingText = document.createTextNode(
-        "Looks like something went wrong"
-    );
-    const paragraph = document.createElement("p");
-    const paragraphText = document.createTextNode(
+    const errorElemenet = getErrorElement(
+        "h1",
+        "Looks like something went wrong",
         "We're sorry. It looks like we can't retrieve our articles. " +
             "Try checking again later."
     );
 
-    heading.append(headingText);
-    paragraph.append(paragraphText);
-
-    fragment.append(heading, paragraph);
-    mainArticleSection.append(fragment);
+    mainArticleSection.append(errorElemenet);
 
     mainArticle.remove();
     aside.remove();
@@ -266,21 +275,32 @@ function loadOrderedArticleError() {
     section.remove();
 }
 
+/**
+ *
+ * @param {String} headingLevel Element heading level
+ * @param {String} headingText Text of heading element
+ * @param {String} paragraphText Text of paragraph
+ * @returns
+ */
 function getErrorElement(headingLevel = "h2", headingText, paragraphText) {
     const container = document.createElement("div");
     container.classList.add("error-element");
 
-    const heading = document.createElement(headingLevel);
-    const headingTextNode = document.createTextNode(headingText);
-    heading.append(headingTextNode);
-    heading.classList.add("error-element__heading");
+    if (headingLevel.length > 0) {
+        const heading = document.createElement(headingLevel);
+        const headingTextNode = document.createTextNode(headingText);
+        heading.append(headingTextNode);
+        heading.classList.add("error-element__heading");
+
+        container.append(heading);
+    }
 
     const paragraph = document.createElement("p");
     const paragraphTextNode = document.createTextNode(paragraphText);
     paragraph.append(paragraphTextNode);
     paragraph.classList.add("error-element__paragraph");
 
-    container.append(heading, paragraph);
+    container.append(paragraph);
 
     return container;
 }
