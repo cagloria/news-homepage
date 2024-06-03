@@ -51,3 +51,9 @@
 .text-color-secondary {
     color: var(--color-secondary) !important;
 }
+
+.error-element {
+    &__heading {
+        margin-bottom: 20px;
+    }
+}

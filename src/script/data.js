@@ -10,26 +10,15 @@ export function loadData() {
         })
         .then((data) => {
             // Main article
-            const mainArticle = data.find((article) => article.isMain === true);
-            if (mainArticle !== undefined) {
-                loadMainArticle(mainArticle);
-            } else {
-                loadMainArticleError();
-                console.error("No main article found in data.");
-            }
+            loadMainArticle(data.find((article) => article.isMain === true));
 
             // New articles
             const newArticles = data.filter(
                 (article) => article.isNew === true
             );
-            if (newArticles.length > 0) {
-                newArticles.forEach((article) => {
-                    loadNewArticles(article);
-                });
-            } else {
-                loadNewArticlesError();
-                console.error("No new articles found in data.");
-            }
+            newArticles.forEach((article) => {
+                loadNewArticles(article);
+            });
 
             // Ordered articles
             const orderedArticles = data.filter(
@@ -45,7 +34,7 @@ export function loadData() {
             }
         })
         .catch((errorStatus) => {
-            console.error(`${errorStatus}. Cannot load articles.`);
+            console.error(`${errorStatus}`);
             loadFetchError();
         });
 }
@@ -56,90 +45,71 @@ export function loadData() {
  * @param {Object} article  Article object
  */
 function loadMainArticle(article) {
-    const articleContainer = document.getElementById(
-        "primary-featured-section"
-    );
-    const fragment = new DocumentFragment();
+    const container = document.getElementById("main-article");
 
-    // Image
-    const picture = document.createElement("picture");
-    picture.classList.add("main-article__image");
+    try {
+        const fragment = new DocumentFragment();
 
-    const sourceMobile = document.createElement("source");
-    sourceMobile.setAttribute("media", "(max-width: 686px)");
-    sourceMobile.setAttribute("srcset", article.imgMobile);
+        // Image
+        const picture = document.createElement("picture");
+        picture.classList.add("main-article__image");
 
-    const sourceDesktop = document.createElement("source");
-    sourceDesktop.setAttribute("media", "(min-width: 687px)");
-    sourceDesktop.setAttribute("srcset", article.imgDesktop);
+        const sourceMobile = document.createElement("source");
+        sourceMobile.setAttribute("media", "(max-width: 686px)");
+        sourceMobile.setAttribute("srcset", article.imgMobile);
 
-    const image = document.createElement("img");
-    image.setAttribute("src", article.imgMobile);
-    image.setAttribute("alt", article.imgAlt);
-    image.setAttribute("loading", "lazy");
+        const sourceDesktop = document.createElement("source");
+        sourceDesktop.setAttribute("media", "(min-width: 687px)");
+        sourceDesktop.setAttribute("srcset", article.imgDesktop);
 
-    picture.append(sourceMobile);
-    picture.append(sourceDesktop);
-    picture.append(image);
+        const image = document.createElement("img");
+        image.setAttribute("src", article.imgMobile);
+        image.setAttribute("alt", article.imgAlt);
+        image.setAttribute("loading", "lazy");
 
-    // Heading
-    const heading = createArticleHeading(
-        article.title,
-        article.url,
-        false,
-        "main-article__heading",
-        "h2"
-    );
+        picture.append(sourceMobile);
+        picture.append(sourceDesktop);
+        picture.append(image);
 
-    // Descripiton
-    const desc = createPreviewDescription(article.previewDesc);
-    desc.classList.add("main-article__description");
+        // Heading
+        const heading = createArticleHeading(
+            article.title,
+            article.url,
+            false,
+            "main-article__heading",
+            "h2"
+        );
 
-    // Link
-    const link = document.createElement("a");
-    const linkText = document.createTextNode("Read more");
-    link.setAttribute("href", article.url);
-    link.classList.add("button-link");
-    link.append(linkText);
+        // Descripiton
+        const desc = createPreviewDescription(article.previewDesc);
+        desc.classList.add("main-article__description");
 
-    // Add to container
-    fragment.append(picture, heading, desc, link);
-    articleContainer.append(fragment);
-}
+        // Link
+        const link = document.createElement("a");
+        const linkText = document.createTextNode("Read more");
+        link.setAttribute("href", article.url);
+        link.classList.add("button-link");
+        link.append(linkText);
 
-/**
- * Create the element of articles and append them to the numbered list on the
- * landing page.
- * @param {Object} article  Article object
- */
-function loadOrderedArticle(article) {
-    const list = document.getElementById("ordered-articles-list");
-    const listItem = document.createElement("li");
-    listItem.classList.add("secondary-article");
+        // Add to container
+        fragment.append(picture, heading, desc, link);
+        container.append(fragment);
+    } catch {
+        const mainSection = document.getElementById("main-article-section");
 
-    // Image
-    const image = document.createElement("img");
-    image.setAttribute("src", article.img);
-    image.setAttribute("alt", article.imgAlt);
-    image.setAttribute("loading", "lazy");
+        const errorElement = getErrorElement(
+            "h2",
+            "Looks like something went wrong loading the main article",
+            "We're sorry. It looks like we can't retrieve today's main " +
+                "article.  Try checking again later."
+        );
 
-    // Heading
-    const heading = createArticleHeading(
-        article.title,
-        article.url,
-        true,
-        "",
-        "h3"
-    );
+        mainSection.append(errorElement);
 
-    // Description
-    const desc = createPreviewDescription(article.previewDesc);
+        container.remove();
 
-    // Add to list item
-    listItem.append(image, heading, desc);
-
-    // Add to list
-    list.append(listItem);
+        console.error("Unable to load main article.");
+    }
 }
 
 /**
@@ -166,6 +136,51 @@ function loadNewArticles(article) {
 
     // Add to container
     container.append(div);
+}
+
+/**
+ * Create the element of articles and append them to the numbered list on the
+ * landing page.
+ * @param {Object} article  Article object
+ */
+function loadOrderedArticle(article) {
+    const list = document.getElementById("ordered-articles-list");
+
+    try {
+        const listItem = document.createElement("li");
+        listItem.classList.add("secondary-article");
+
+        // Image
+        const image = document.createElement("img");
+        image.setAttribute("src", article.img);
+        image.setAttribute("alt", article.imgAlt);
+        image.setAttribute("loading", "lazy");
+
+        // Heading
+        const heading = createArticleHeading(
+            article.title,
+            article.url,
+            true,
+            "",
+            "h3"
+        );
+
+        // Description
+        const desc = createPreviewDescription(article.previewDesc);
+
+        // Add to list item
+        listItem.append(image, heading, desc);
+
+        // Add to list
+        list.append(listItem);
+    } catch (error) {
+        const section = document.getElementById("ordered-articles-section");
+
+        list.remove();
+        section.remove();
+
+        console.error("Unable to load new articles.");
+    }
 }
 
 /**
@@ -214,7 +229,8 @@ function createPreviewDescription(text) {
  * from page and add note.
  */
 function loadFetchError() {
-    const mainArticle = document.getElementById("primary-featured-section");
+    const mainArticleSection = document.getElementById("main-article-section");
+    const mainArticle = document.getElementById("main-article");
     const aside = document.getElementById("new-articles-aside");
     const orderedArticlesSection = document.getElementById(
         "ordered-articles-section"
@@ -227,38 +243,19 @@ function loadFetchError() {
     );
     const paragraph = document.createElement("p");
     const paragraphText = document.createTextNode(
-        "We're sorry. It looks like we can't retrieve our articles. Try " +
-            "checking again later."
+        "We're sorry. It looks like we can't retrieve our articles. " +
+            "Try checking again later."
     );
 
     heading.append(headingText);
     paragraph.append(paragraphText);
 
     fragment.append(heading, paragraph);
-    mainArticle.append(fragment);
+    mainArticleSection.append(fragment);
+
+    mainArticle.remove();
     aside.remove();
     orderedArticlesSection.remove();
-}
-
-function loadMainArticleError() {
-    const mainArticle = document.getElementById("primary-featured-section");
-    const fragment = new DocumentFragment();
-
-    const heading = document.createElement("h2");
-    const headingText = document.createTextNode(
-        "Looks like something went wrong loading the main article"
-    );
-    heading.append(headingText);
-
-    const paragraph = document.createElement("p");
-    const paragraphText = document.createTextNode(
-        "We're sorry. It looks like we can't retrieve today's main article. " +
-            " Try checking again later."
-    );
-    paragraph.append(paragraphText);
-
-    fragment.append(heading, paragraph);
-    mainArticle.append(fragment);
 }
 
 function loadOrderedArticleError() {
@@ -269,15 +266,21 @@ function loadOrderedArticleError() {
     section.remove();
 }
 
-function loadNewArticlesError() {
-    const container = document.getElementById("new-articles-container");
+function getErrorElement(headingLevel = "h2", headingText, paragraphText) {
+    const container = document.createElement("div");
+    container.classList.add("error-element");
+
+    const heading = document.createElement(headingLevel);
+    const headingTextNode = document.createTextNode(headingText);
+    heading.append(headingTextNode);
+    heading.classList.add("error-element__heading");
 
     const paragraph = document.createElement("p");
-    const paragraphText = document.createTextNode(
-        "We're sorry. It looks like we can't retrieve today's new articles. " +
-            " Try checking again later."
-    );
-    paragraph.append(paragraphText);
+    const paragraphTextNode = document.createTextNode(paragraphText);
+    paragraph.append(paragraphTextNode);
+    paragraph.classList.add("error-element__paragraph");
 
-    container.append(paragraph);
+    container.append(heading, paragraph);
+
+    return container;
 }
