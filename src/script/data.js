@@ -78,7 +78,7 @@ function loadMainArticle(article) {
             article.url,
             false,
             "main-article__heading",
-            "h2"
+            "h3"
         );
 
         // Description

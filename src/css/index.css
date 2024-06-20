@@ -524,6 +524,13 @@ nav {
   transition-delay: 0s;
 }
 
+.hidden {
+  display: block;
+  width: 0;
+  height: 0;
+  overflow: hidden;
+}
+
 .button-link {
   background-color: var(--color-primary);
   color: var(--color-dark-01);
